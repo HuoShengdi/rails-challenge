@@ -1,4 +1,4 @@
-import {SEND_FEEDBACK, GET_ORDER_FEEDBACK, RECEIVE_ORDER_FEEDBACK} from '../constants/feedback_constants';
+import {SEND_FEEDBACK, GET_ORDER_FEEDBACK, RECEIVE_FEEDBACK} from '../constants/feedback_constants';
 import {sendOrderFeedback, sendItemFeedback, getOrderFeedback} from '../util/api_util';
 
 const initialState = {};
@@ -17,7 +17,7 @@ const feedbackReducer = (state = initialState, action)=>{
       break;
     case RECEIVE_FEEDBACK:
       const newState = {};
-      action.items.forEach((item)=>{
+      action.order.order_items.forEach((item)=>{
         newState[item.id] = item;
       })
       return newState;

@@ -1,5 +1,5 @@
-import {SEND_FEEDBACK} from '../constants/feedback_constants';
-import {GET_ORDER_FEEDBACK} from '../constants/feedback_constants';
+import {SEND_FEEDBACK, GET_ORDER_FEEDBACK, RECEIVE_FEEDBACK} from '../constants/feedback_constants';
+
 
 export const sendFeedback = (feedback)=>{
   return {
@@ -15,9 +15,9 @@ export const getOrderFeedback = (order_id)=>{
   }
 }
 
-export const receiveFeedback = (items)=>{
+export const receiveFeedback = (order)=>{
   return {
     type: RECEIVE_FEEDBACK,
-    items: items
+    order: order
   }
 }

@@ -14,9 +14,9 @@ export const sendItemFeedback = (itemFeedback, success)=>{
   })
 }
 
-export const getOrderFeedback = (id,success)=>{
+export const getOrder = (id, success)=>{
   $.ajax({
-    url: '/order/' + id + '/feedback',
+    url: '/api/order/' + id,
     type: 'GET',
     success
   });

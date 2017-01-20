@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import {connect} from 'react-redux';
 import FeedbackForm from './feedback_form';
 import {sendFeedback, receiveFeedback} from '../../actions/feedback_actions';
+import {allItems} from '../../reducers/selectors';
 
 const mapStateToProps = (state)=>(
   {items: allItems(state)}
@@ -15,4 +16,4 @@ const mapDispatchToProps = (dispatch)=>(
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TodoList);
+)(FeedbackForm);
