@@ -5,7 +5,13 @@ OrderItem = Struct.new(:id, :meal_name)
 class Api::OrderController < ApplicationController
   def show
     @order = find_order(params[:id])
-    render json: @order
+    if OrderFeedback.exists?(order_id: params[:id])
+      respond_to do |format|
+        format.json {render json: "Feedback already submitted for this order", status: :unprocessable_entity}
+      end
+    else
+      render json: @order
+    end
   end
 
   private

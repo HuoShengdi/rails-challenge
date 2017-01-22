@@ -1,8 +1,16 @@
-export const sendOrderFeedback = (orderFeedback, success)=>{
+export const sendOrderFeedback = (orderFeedback, success, error)=>{
   $.ajax({
     url: '/api/order/' + orderFeedback.order_id + '/order_feedback',
     type: 'POST',
-    success
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify({feedback: orderFeedback}),
+    success,
+    error(xhr) {
+      console.log(xhr);
+      const errors = xhr.responseText;
+      error(errors);
+    }
   });
 }
 
@@ -14,10 +22,15 @@ export const sendItemFeedback = (itemFeedback, success)=>{
   })
 }
 
-export const getOrder = (id, success)=>{
+export const getOrder = (id, success, error)=>{
   $.ajax({
     url: '/api/order/' + id,
     type: 'GET',
-    success
+    success,
+    error(xhr) {
+      console.log(xhr);
+      const errors = xhr.responseText;
+      error(errors);
+    }
   });
 }

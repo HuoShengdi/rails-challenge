@@ -1,29 +1,31 @@
 import React, { PropTypes } from 'react';
 import ItemFeedbackForm from './item_feedback_form';
 import RatingBar from './rating_bar';
-import {getOrder} from '../../util/api_util';
+import {sendOrderFeedback, getOrder} from '../../util/api_util';
+import {browserHistory} from 'react-router';
 
 class FeedbackForm extends React.Component {
   constructor(props) {
     super(props);
-    const itemMap = {};
-    this.props.items.forEach((item)=>{
-      itemMap[item.id] = item;
-    })
     this.state = {
-      order: {
-        order_id: this.props.params.order_id,
-        rating: 3,
-        comment: "",
-        items: itemMap
-      }
+      order_id: this.props.params.order_id,
+      rating: 3,
+      comment: "",
+      error: false
     }
-    this.updateRating = this.updateRating.bind(this);
     this.updateItem = this.updateItem.bind(this);
+    this.updateRating = this.updateRating.bind(this);
+    this.handleComment = this.handleComment.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleError = this.handleError.bind(this);
   }
 
   componentDidMount(){
-    getOrder(this.props.params.order_id, this.props.receiveFeedback);
+    getOrder(this.props.params.order_id, this.props.receiveFeedback, this.handleError);
+  }
+
+  handleError(error){
+    this.setState({error: error})
   }
 
   updateRating(value){
@@ -31,9 +33,28 @@ class FeedbackForm extends React.Component {
   }
 
   updateItem(item){
-    const updatedItems = this.state.items;
-    updatedItems[item.id] = item;
-    this.setState({items: updatedItems})
+    this.setState({[item.item_id]: item});
+  }
+
+  handleComment(e){
+    this.setState({comment: e.target.value})
+  }
+
+  handleSubmit(e){
+    const items = this.props.items.map((item)=>{
+      return this.state[item.id];
+    })
+
+    const order = {
+      order_id: this.state.order_id,
+      rating: this.state.rating,
+      comment: this.state.comment,
+      items: items
+    }
+    const submitSuccess = ()=>{
+      browserHistory.push(this.props.location.pathname + '/complete');
+    }
+    sendOrderFeedback(order, submitSuccess, this.handleError);
   }
 
   render() {
@@ -42,17 +63,28 @@ class FeedbackForm extends React.Component {
         <ItemFeedbackForm key={item.id} updateItem={this.updateItem} item={item}/>
       )
     })
-    return (
+    const FForm = (
       <div>
-        <h1>Your Feedback</h1>
+        <h1>Your Feedback for Order {"GO"+this.props.params.order_id}</h1>
+        <h2>Meals</h2>
         {itemForms}
         <h2>Rate your delivery:</h2>
         <form>
-          <textarea id='order-comment' value={this.state.order.comment}></textarea>
+          <textarea id='order-comment' value={this.state.comment} onChange={this.handleComment}></textarea>
           <RatingBar updateRating={this.updateRating}/>
         </form>
+        <button onClick={this.handleSubmit}>Submit Feedback</button>
       </div>
-    )
+    );
+    if(this.state.error){
+      return (
+        <div>
+          {this.state.error}
+        </div>
+      );
+    } else {
+      return FForm;
+    }
   }
 }
 
