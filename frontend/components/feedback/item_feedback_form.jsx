@@ -33,8 +33,8 @@ class ItemFeedbackForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>{this.props.item.meal_name}</h3>
+      <div className='item-form'>
+        <h3 className='item-name'>{this.props.item.meal_name}</h3>
         <form>
           <textarea value={this.state.comment} onChange={this.handleComment}></textarea>
           <RatingBar updateRating={this.updateRating}/>

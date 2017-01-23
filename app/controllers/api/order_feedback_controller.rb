@@ -6,7 +6,7 @@ class Api::OrderFeedbackController < ApplicationController
       rating: feedback_params[:rating],
       comment: feedback_params[:comment]
     )
-    print feedback_params[:items]
+
     @items_feedback = feedback_params[:items].map do |item|
       ItemFeedback.new(
         order_id: feedback_params[:order_id],
@@ -24,7 +24,7 @@ class Api::OrderFeedbackController < ApplicationController
         @order_feedback.save
         @items_feedback.each(&:save)
       end
-      render json: @order_feedback.errors.full_messages
+      render json: @order_feedback
     end
 
   end

@@ -51,9 +51,11 @@ class FeedbackForm extends React.Component {
       comment: this.state.comment,
       items: items
     }
+
     const submitSuccess = ()=>{
       browserHistory.push(this.props.location.pathname + '/complete');
     }
+
     sendOrderFeedback(order, submitSuccess, this.handleError);
   }
 
@@ -64,21 +66,21 @@ class FeedbackForm extends React.Component {
       )
     })
     const FForm = (
-      <div>
-        <h1>Your Feedback for Order {"GO"+this.props.params.order_id}</h1>
-        <h2>Meals</h2>
+      <div className='feedback-form'>
+        <h1 className='feedback-title'>Your Feedback for Order {"GO"+this.props.params.order_id}</h1>
+        <h2 className='meal-title'>Meals</h2>
         {itemForms}
-        <h2>Rate your delivery:</h2>
+        <h2 className='delivery-title'>Rate your delivery:</h2>
         <form>
           <textarea id='order-comment' value={this.state.comment} onChange={this.handleComment}></textarea>
           <RatingBar updateRating={this.updateRating}/>
         </form>
-        <button onClick={this.handleSubmit}>Submit Feedback</button>
+        <button className='submit-button' onClick={this.handleSubmit}>Submit Feedback</button>
       </div>
     );
     if(this.state.error){
       return (
-        <div>
+        <div className='feedback-error'>
           {this.state.error}
         </div>
       );
