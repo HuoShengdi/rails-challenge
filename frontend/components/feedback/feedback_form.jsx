@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ItemFeedbackForm from './item_feedback_form';
+import FeedbackError from './feedback_error';
 import RatingBar from './rating_bar';
 import {sendOrderFeedback, getOrder} from '../../util/api_util';
 import {browserHistory} from 'react-router';
@@ -54,6 +55,7 @@ class FeedbackForm extends React.Component {
 
     const submitSuccess = ()=>{
       browserHistory.push(this.props.location.pathname + '/complete');
+      return false;
     }
 
     sendOrderFeedback(order, submitSuccess, this.handleError);
@@ -69,20 +71,24 @@ class FeedbackForm extends React.Component {
       <div className='feedback-form'>
         <h1 className='feedback-title'>Your Feedback for Order {"GO"+this.props.params.order_id}</h1>
         <h2 className='meal-title'>Meals</h2>
-        {itemForms}
+        <div className='items-box'>
+          {itemForms}
+        </div>
         <h2 className='delivery-title'>Rate your delivery:</h2>
-        <form>
-          <textarea id='order-comment' value={this.state.comment} onChange={this.handleComment}></textarea>
-          <RatingBar updateRating={this.updateRating}/>
-        </form>
+        <div className='delivery-box'>
+
+          <form className='delivery-form'>
+            <textarea id='order-comment' value={this.state.comment} onChange={this.handleComment}></textarea>
+            <RatingBar updateRating={this.updateRating}/>
+          </form>
+        </div>
+
         <button className='submit-button' onClick={this.handleSubmit}>Submit Feedback</button>
       </div>
     );
     if(this.state.error){
       return (
-        <div className='feedback-error'>
-          {this.state.error}
-        </div>
+        <FeedbackError className='feedback-error' error={this.state.error} />
       );
     } else {
       return FForm;

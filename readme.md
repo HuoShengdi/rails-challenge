@@ -22,27 +22,11 @@ Scenario:
 1. User should be able to input a comment on each feedback (or you can think beyond free form text and think of quick select tags, make the case)
 1. User should not be able to submit a feedback for the same order again
 
-## Setting it all up
+## Evaluation Setup
 
 1. Fork this repo
 1. `bundle install`
+1. `npm install`
+1. `webpack`
 1. `rails s`
 1. Visit [http://localhost:3000/order/123/feedback]() to get started
-
-= or =
-
-Use a prototyping tool of your choice (we use Rails here, but for this exercise, your most comfortable tool is fine)
-
-
-## Areas of assessment
-
-1. Code readability
-1. Familiarity with Rails application pattern (if applicable)
-1. Unit tests
-1. OK looking user interfaces
-1. Corner cases handling
-
-
-## Questions?
-
-Make an assumption! or ask [Ernest](mailto:ernest@grain.com.sg) if you must

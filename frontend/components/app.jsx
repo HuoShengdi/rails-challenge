@@ -2,15 +2,18 @@ import React, { PropTypes } from 'react';
 
 
 
-const App = React.createClass({
+class App extends React.Component {
   render () {
     return (
       <div className='app-main'>
-        <h1 className='grain-title'>Grain</h1>
-        {this.props.children}
+        <img className='logo' src="/assets/grain-logo.png" alt="Grain" />
+        <div className='app-container'>
+          {this.props.children}
+        </div>
+
       </div>
     )
   }
-});
+};
 
 export default App;

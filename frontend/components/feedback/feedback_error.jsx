@@ -8,7 +8,8 @@ class FeedbackError extends React.Component {
   render(){
     return(
       <div>
-        <h2>You have already submitted feedback for this order!</h2>
+        <h2>Error</h2>
+        {this.props.error}
       </div>
     )
   }

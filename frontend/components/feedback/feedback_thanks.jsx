@@ -7,8 +7,8 @@ class FeedbackThanks extends React.Component {
 
   render(){
     return(
-      <div>
-        <h2>Feedback submitted. Thank you for ordering from Grain!</h2>
+      <div className='feedback-thanks'>
+        <h2>Feedback submitted for order {"GO" + this.props.params.order_id}. Thank you for ordering from Grain!</h2>
       </div>
     )
   }

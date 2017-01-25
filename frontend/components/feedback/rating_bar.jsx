@@ -16,17 +16,19 @@ class RatingBar extends React.Component {
   }
 
   render () {
+
     const stars = [];
     for(let i = 1; i <= 5; i++){
+      let filled = !(i > this.state.rating);
       stars.push(
-        <span onClick={this.handleClickValue(i)} className='rating-star' key={i}>
-          {i > this.state.rating ? "\u2606" : "\u2605"}
+        <span onClick={this.handleClickValue(i)} className={'rating-star' + (filled ? " filled" : ' empty')} key={i}>
+          {filled ? "\u2605" : "\u2606"}
         </span>
       )
     }
     return (
       <div>
-        Rating:
+        {'Rating: '}
         {stars}
       </div>
     )

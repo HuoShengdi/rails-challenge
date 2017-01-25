@@ -9,8 +9,8 @@ const Root = ({ store })=>(
    <Provider store={ store }>
      <Router history={browserHistory}>
        <Route path='/' component={App}>
-          <Route path='/order/:order_id/feedback' component={FeedbackContainer}/>
-          <Route path='/order/:order_id/feedback/complete' component={FeedbackThanks}/>
+         <Route path='/order/:order_id/feedback/complete' component={FeedbackThanks}/>
+         <Route path='/order/:order_id/feedback' component={FeedbackContainer}/>
        </Route>
      </Router>
    </Provider>
